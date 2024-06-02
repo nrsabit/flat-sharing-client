@@ -35,7 +35,7 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ background: "#e7e7e7" }}>
+    <AppBar position="static" sx={{ background: "#e7e7e7", boxShadow: "none", borderBottom: "1px solid #5BE1E6" }}>
       <Container maxWidth="xl">
         <Toolbar>
           <Typography

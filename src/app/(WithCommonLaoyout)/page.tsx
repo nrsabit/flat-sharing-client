@@ -1,8 +1,10 @@
+import BannerSection from "@/components/UI/Homepage/BannerSection/BannerSection";
+
 const HomePage = () => {
   return (
-    <div>
-      <h1>This is homepage</h1>
-    </div>
+    <>
+      <BannerSection />
+    </>
   );
 };
 
