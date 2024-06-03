@@ -14,12 +14,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Stack } from "@mui/material";
 import { usePathname } from "next/navigation";
+import AuthLinks from "@/components/UI/AuthLinks/AuthLinks";
 
 const menuItems = [
   { name: "Home", link: "/" },
   { name: "About Us", link: "/about-us" },
-  { name: "Login", link: "/login" },
-  { name: "My Profile", link: "/my-profile" },
 ];
 
 const Navbar = () => {
@@ -35,7 +34,14 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ background: "#e7e7e7", boxShadow: "none", borderBottom: "1px solid #5BE1E6" }}>
+    <AppBar
+      position="static"
+      sx={{
+        background: "#e7e7e7",
+        boxShadow: "none",
+        borderBottom: "1px solid #5BE1E6",
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar>
           <Typography
@@ -90,6 +96,9 @@ const Navbar = () => {
                   </Typography>
                 </MenuItem>
               ))}
+              <MenuItem onClick={handleCloseNavMenu}>
+                <AuthLinks />
+              </MenuItem>
             </Menu>
           </Box>
           <Typography
@@ -122,7 +131,7 @@ const Navbar = () => {
                   ...(pathname === item.link
                     ? {
                         color: "secondary.main",
-                        borderBottom: "2px solid #5BE1E6"
+                        borderBottom: "2px solid #5BE1E6",
                       }
                     : {}),
                 }}
@@ -130,6 +139,7 @@ const Navbar = () => {
                 {item.name}
               </Typography>
             ))}
+            <AuthLinks />
           </Stack>
         </Toolbar>
       </Container>
