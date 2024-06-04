@@ -6,13 +6,42 @@ import Link from "next/link";
 import logo from "@/assets/images/logo.png";
 import FSForm from "@/components/Forms/FSForm";
 import FSInput from "@/components/Forms/FSInput";
+import { z } from "zod";
+import { useRouter } from "next/navigation";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import { loginUser } from "@/services/actions/loginUser";
+import { toast } from "sonner";
+import { storeUserInfo } from "@/services/auth.services";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export type TLoginFormValues = {
   email: string;
   password: string;
 };
 
+const loginValidationSchema = z.object({
+  email: z.string().email("Must be a valid email"),
+  password: z.string().min(6, "Password should be at leaset 6 characters"),
+});
+
 const LoginPage = () => {
+  const router = useRouter();
+
+  const submit: SubmitHandler<FieldValues> = async (values) => {
+    try {
+      const res = await loginUser(values);
+      if (res?.data?.accessToken) {
+        toast.success(res?.message, { duration: 5000 });
+        storeUserInfo(res?.data?.accessToken);
+        router.push("/");
+      } else {
+        toast.error(res?.message, { duration: 5000 });
+      }
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
+
   return (
     <Container>
       <Stack
@@ -41,7 +70,8 @@ const LoginPage = () => {
           </Stack>
 
           <FSForm
-            onSubmit={() => {}}
+            onSubmit={submit}
+            resolver={zodResolver(loginValidationSchema)}
             defaultValues={{
               email: "",
               password: "",

@@ -6,8 +6,42 @@ import Link from "next/link";
 import logo from "@/assets/images/logo.png";
 import FSForm from "@/components/Forms/FSForm";
 import FSInput from "@/components/Forms/FSInput";
+import { z } from "zod";
+import { useRouter } from "next/navigation";
+import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
+import { registerUser } from "@/services/actions/registerUser";
+import { storeUserInfo } from "@/services/auth.services";
+import { loginUser } from "@/services/actions/loginUser";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const registerValidationSchema = z.object({
+  userName: z.string(),
+  email: z.string().email("Must be a valid email"),
+  password: z.string().min(6, "Password should be at leaset 6 characters"),
+});
 
 const RegisterPage = () => {
+  const router = useRouter();
+
+  const submit = async (values: FieldValues) => {
+    try {
+      const res = await registerUser(values);
+      if (res?.data?.id) {
+        toast.success(res?.message, { duration: 5000 });
+        const result = await loginUser({
+          password: values.password,
+          email: values.email,
+        });
+        if (result?.data?.accessToken) {
+          storeUserInfo(result?.data?.accessToken);
+          router.push("/");
+        }
+      }
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
   return (
     <Container>
       <Stack
@@ -35,7 +69,11 @@ const RegisterPage = () => {
             </Box>
           </Stack>
 
-          <FSForm onSubmit={() => {}}>
+          <FSForm
+            onSubmit={submit}
+            defaultValues={{ userName: "", email: "", password: "" }}
+            resolver={zodResolver(registerValidationSchema)}
+          >
             <Grid container spacing={2} my={2}>
               <Grid item md={12}>
                 <FSInput name="userName" label="User Name" fullWidth={true} />
