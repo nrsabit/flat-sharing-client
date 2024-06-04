@@ -4,20 +4,27 @@ import { getUserInfo } from "@/services/auth.services";
 import { Typography } from "@mui/material";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const AuthLinks = () => {
-  const userInfo = getUserInfo();
+  const [userInfo, setUserInfo] = useState({});
+
+  useEffect(() => {
+    const userInfo = getUserInfo();
+    setUserInfo(userInfo);
+  }, []);
+
   const pathname = usePathname();
 
   return (
     <>
-      {userInfo?.email ? (
+      {(userInfo as any)?.email ? (
         <Typography
           color="primary.main"
           component={Link}
-          href="/my-profile"
+          href="/dashboard/my-profile"
           sx={{
-            ...(pathname === "/my-profile"
+            ...(pathname === "/dashboard/my-profile"
               ? {
                   color: "secondary.main",
                   borderBottom: "2px solid #5BE1E6",
