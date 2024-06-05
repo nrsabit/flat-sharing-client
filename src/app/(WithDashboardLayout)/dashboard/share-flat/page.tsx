@@ -11,7 +11,7 @@ import { toast } from "sonner";
 
 const ShareFlat = () => {
   const router = useRouter();
-  const [shareFlat] = useShareFlatMutation();
+  const [shareFlat, { isLoading }] = useShareFlatMutation();
   const handleFormSubmit = async (values: FieldValues) => {
     values.rent = Number(values.rent);
     values.totalBedrooms = Number(values.totalBedrooms);
@@ -85,7 +85,9 @@ const ShareFlat = () => {
           </Grid>
         </Grid>
 
-        <Button type="submit">Share</Button>
+        <Button disabled={isLoading} type="submit">
+          Share
+        </Button>
       </FSForm>
     </Box>
   );

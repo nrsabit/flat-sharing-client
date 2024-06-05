@@ -1,4 +1,5 @@
 import { Box, Button } from "@mui/material";
+import Link from "next/link";
 
 const ShareFlatSection = () => {
   return (
@@ -11,7 +12,9 @@ const ShareFlatSection = () => {
       alignItems="center"
       bgcolor="#e7e7e7"
     >
-      <Button>Share Your Flat</Button>
+      <Link href="/dashboard/share-flat">
+        <Button>Share Your Flat</Button>
+      </Link>
     </Box>
   );
 };

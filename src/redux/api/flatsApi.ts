@@ -11,7 +11,15 @@ export const flatsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["flats"],
     }),
+    getAllFlats: build.query({
+      query: (arg: Record<string, any>) => ({
+        url: "/flats",
+        method: "GET",
+        params: arg,
+      }),
+      providesTags: ["flats"],
+    }),
   }),
 });
 
-export const { useShareFlatMutation } = flatsApi;
+export const { useShareFlatMutation, useGetAllFlatsQuery } = flatsApi;
