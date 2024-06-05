@@ -1,11 +1,18 @@
-export const convertToFormData = (values: any) => {
+import { FieldValues } from "react-hook-form";
+
+export const convertToFormData = (values: FieldValues) => {
   const obj = { ...values };
-  const files = obj["files"];
-  delete obj["files"];
+  const files = obj["images"];
+  delete obj["images"];
   const data = JSON.stringify(obj);
   const formdata = new FormData();
   formdata.append("data", data);
-  formdata.append("files", files);
+
+  if (files && files.length) {
+    for (let i = 0; i < files.length; i++) {
+      formdata.append("files", files[i]);
+    }
+  }
 
   return formdata;
 };
