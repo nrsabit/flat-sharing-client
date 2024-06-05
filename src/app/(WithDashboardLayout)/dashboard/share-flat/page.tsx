@@ -19,13 +19,12 @@ const ShareFlat = () => {
 
     try {
       const res = await shareFlat(data).unwrap();
-      console.log(res);
       if (res?.id) {
         toast.success("New Flat Shared Successfuly");
         router.push("/");
       }
     } catch (err: any) {
-      console.error(err);
+      toast.error(err?.message || "Something went wrong");
     }
   };
   return (

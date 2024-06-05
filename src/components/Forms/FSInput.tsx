@@ -12,6 +12,8 @@ type TFormINputProps = {
   required?: boolean;
   multiline?: boolean;
   rows?: number;
+  disabled?: boolean;
+  defaultValue?: any;
 };
 
 const FSInput = ({
@@ -22,9 +24,11 @@ const FSInput = ({
   fullWidth = true,
   sx,
   placeholder,
-  required,
+  required = true,
   multiline = false,
   rows = 4,
+  disabled = false,
+  defaultValue,
 }: TFormINputProps) => {
   const { control } = useFormContext();
   return (
@@ -47,6 +51,8 @@ const FSInput = ({
           helperText={error?.message}
           multiline={multiline}
           rows={rows}
+          disabled={disabled}
+          defaultValue={defaultValue}
         />
       )}
     />

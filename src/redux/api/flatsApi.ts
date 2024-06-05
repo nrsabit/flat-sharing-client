@@ -19,7 +19,26 @@ export const flatsApi = baseApi.injectEndpoints({
       }),
       providesTags: ["flats"],
     }),
+    getMyFlats: build.query({
+      query: (arg: Record<string, any>) => ({
+        url: "/flats/my-flats",
+        method: "GET",
+        params: arg,
+      }),
+      providesTags: ["flats"],
+    }),
+    getSilgleFlat: build.query({
+      query: (id: string) => ({
+        url: `/flats/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useShareFlatMutation, useGetAllFlatsQuery } = flatsApi;
+export const {
+  useShareFlatMutation,
+  useGetAllFlatsQuery,
+  useGetMyFlatsQuery,
+  useGetSilgleFlatQuery,
+} = flatsApi;

@@ -15,6 +15,7 @@ import FSForm from "@/components/Forms/FSForm";
 import { FieldValues } from "react-hook-form";
 import FSInput from "@/components/Forms/FSInput";
 import { useState } from "react";
+import Link from "next/link";
 
 const FlatsSection = () => {
   const [query, setQuery] = useState({});
@@ -26,7 +27,7 @@ const FlatsSection = () => {
   };
 
   const handleClearSearch = () => {
-    setQuery({})
+    setQuery({});
   };
 
   return (
@@ -114,9 +115,11 @@ const FlatsSection = () => {
                 </Typography>
               </CardContent>
               <CardActions sx={{ marginBottom: "10px" }}>
-                <Button size="small" color="primary">
-                  See Details
-                </Button>
+                <Link href={`/flat/${item.id}`}>
+                  <Button size="small" color="primary">
+                    See Details
+                  </Button>
+                </Link>
               </CardActions>
             </Card>
           </Grid>
