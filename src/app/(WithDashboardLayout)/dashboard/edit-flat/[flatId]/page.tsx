@@ -1,36 +1,45 @@
 "use client";
-import FSFileUploader from "@/components/Forms/FSFilesUploader";
 import FSForm from "@/components/Forms/FSForm";
 import FSInput from "@/components/Forms/FSInput";
-import { useShareFlatMutation } from "@/redux/api/flatsApi";
-import { convertToFormData } from "@/utils/convertToFormData";
+import {
+  useGetSilgleFlatQuery,
+  useUpdateFlatMutation,
+} from "@/redux/api/flatsApi";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
-const ShareFlat = () => {
+const EditFlat = ({ params }: { params: { flatId: string } }) => {
+  const { data: flat } = useGetSilgleFlatQuery(params.flatId);
+
   const router = useRouter();
-  const [shareFlat, { isLoading }] = useShareFlatMutation();
+
+  const [updateFlat, { isLoading }] = useUpdateFlatMutation();
+
   const handleFormSubmit = async (values: FieldValues) => {
     values.rent = Number(values.rent);
     values.totalBedrooms = Number(values.totalBedrooms);
-    const data = convertToFormData(values);
+    const data = {
+      id: params.flatId,
+      data: values,
+    };
 
     try {
-      const res = await shareFlat(data).unwrap();
-      if (res?.id) {
-        toast.success("New Flat Shared Successfuly");
+      const res = await updateFlat(data);
+      if (res?.data?.id) {
+        toast.success("Flat Updated Successfuly");
         router.push("/dashboard/my-flats");
       }
     } catch (err: any) {
       toast.error(err?.message || "Something went wrong");
     }
   };
+
   return (
     <Box>
       <Typography component="h1" variant="h5">
-        Share a Flat
+        Edit Flat
       </Typography>
       <FSForm onSubmit={handleFormSubmit}>
         <Grid container spacing={2} sx={{ my: 5 }}>
@@ -40,6 +49,7 @@ const ShareFlat = () => {
               type="number"
               label="Rent Amount"
               sx={{ mb: 2 }}
+              defaultValue={flat?.rent}
               fullWidth
             />
           </Grid>
@@ -49,6 +59,7 @@ const ShareFlat = () => {
               label="Number of Bedrooms"
               type="number"
               sx={{ mb: 2 }}
+              defaultValue={flat?.totalBedrooms}
               fullWidth
             />
           </Grid>
@@ -57,6 +68,7 @@ const ShareFlat = () => {
               name="location"
               label="Location"
               sx={{ mb: 2 }}
+              defaultValue={flat?.location}
               fullWidth
             />
           </Grid>
@@ -66,6 +78,7 @@ const ShareFlat = () => {
               label="Amenities"
               multiline={true}
               sx={{ mb: 2 }}
+              defaultValue={flat?.amenities}
               fullWidth
             />
           </Grid>
@@ -75,21 +88,18 @@ const ShareFlat = () => {
               label="Description"
               multiline={true}
               sx={{ mb: 2 }}
+              defaultValue={flat?.description}
               fullWidth
             />
-          </Grid>
-
-          <Grid item xs={12} sm={12} md={4}>
-            <FSFileUploader name="images" label="Upload Images" />
           </Grid>
         </Grid>
 
         <Button disabled={isLoading} type="submit">
-          Share
+          Update
         </Button>
       </FSForm>
     </Box>
   );
 };
 
-export default ShareFlat;
+export default EditFlat;

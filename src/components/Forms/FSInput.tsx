@@ -53,6 +53,9 @@ const FSInput = ({
           rows={rows}
           disabled={disabled}
           defaultValue={defaultValue}
+          InputLabelProps={{
+            shrink: defaultValue ? true : undefined,
+          }}
         />
       )}
     />

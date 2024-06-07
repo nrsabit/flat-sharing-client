@@ -33,6 +33,21 @@ export const flatsApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    updateFlat: build.mutation({
+      query: (payload) => ({
+        url: `/flats/${payload.id}`,
+        method: "PUT",
+        data: payload.data,
+      }),
+      invalidatesTags: ["flats", "flat-requests"],
+    }),
+    deleteFlat: build.mutation({
+      query: (id) => ({
+        url: `/flats/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["flats", "flat-requests"],
+    }),
   }),
 });
 
@@ -41,4 +56,6 @@ export const {
   useGetAllFlatsQuery,
   useGetMyFlatsQuery,
   useGetSilgleFlatQuery,
+  useDeleteFlatMutation,
+  useUpdateFlatMutation
 } = flatsApi;

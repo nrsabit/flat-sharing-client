@@ -9,11 +9,41 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { useGetMyFlatsQuery } from "@/redux/api/flatsApi";
+import {
+  useDeleteFlatMutation,
+  useGetMyFlatsQuery,
+} from "@/redux/api/flatsApi";
+import { toast } from "sonner";
+import Link from "next/link";
 
 const MyFlats = () => {
-
   const { data: flats } = useGetMyFlatsQuery({});
+  const [deleteFlat, { isLoading }] = useDeleteFlatMutation();
+
+  const handleDelete = async (id: string) => {
+    try {
+      toast.warning("Are you confirm to delete?", {
+        action: {
+          label: "Confirm",
+          onClick: async () => {
+            const res = await deleteFlat(id).unwrap();
+            if (res?.id) {
+              toast.success("Flat deleted successfully");
+            }
+          },
+        },
+        cancel: {
+          label: "Cancel",
+          onClick: () => {
+            toast.dismiss();
+          },
+        },
+        cancelButtonStyle: { background: "red" },
+      });
+    } catch (err: any) {
+      toast.error(err?.message || "Something went wrong");
+    }
+  };
 
   return (
     <Box>
@@ -47,10 +77,17 @@ const MyFlats = () => {
                 </Typography>
               </CardContent>
               <CardActions sx={{ marginBottom: "10px" }}>
-                <Button size="small" color="primary">
-                  Update
-                </Button>
-                <Button size="small" sx={{bgcolor: "red"}}>
+                <Link href={`/dashboard/edit-flat/${item?.id}`}>
+                  <Button size="small" color="primary">
+                    Update
+                  </Button>
+                </Link>
+                <Button
+                  onClick={() => handleDelete(item?.id)}
+                  size="small"
+                  sx={{ bgcolor: "red" }}
+                  disabled={isLoading}
+                >
                   Delete
                 </Button>
               </CardActions>

@@ -45,10 +45,10 @@ const FlatShareRequest = ({ params }: TParams) => {
       const res = await shareFlatRequest(data).unwrap();
       if (res?.id) {
         toast.success("Flat Requested");
-        router.push("/");
+        router.push("/dashboard/my-flat-requests");
       }
     } catch (err: any) {
-      toast.error(err?.message || "Something went wrong")
+      toast.error(err?.message || "Something went wrong");
     }
   };
 
