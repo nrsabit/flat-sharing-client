@@ -1,18 +1,12 @@
 "use client";
 
-import { getUserInfo } from "@/services/auth.services";
+import { useGetMeQuery } from "@/redux/api/usersApi";
 import { Typography } from "@mui/material";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 
 const AuthLinks = () => {
-  const [userInfo, setUserInfo] = useState({});
-
-  useEffect(() => {
-    const userInfo = getUserInfo();
-    setUserInfo(userInfo);
-  }, []);
+  const { data: userInfo } = useGetMeQuery({});
 
   const pathname = usePathname();
 
