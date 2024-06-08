@@ -1,4 +1,5 @@
 "use client";
+import LoadingPage from "@/app/loading";
 import FSFileUploader from "@/components/Forms/FSFilesUploader";
 import FSForm from "@/components/Forms/FSForm";
 import FSInput from "@/components/Forms/FSInput";
@@ -18,15 +19,22 @@ const ShareFlat = () => {
     const data = convertToFormData(values);
 
     try {
-      const res = await shareFlat(data).unwrap();
+      const res: any = await shareFlat(data).unwrap();
       if (res?.id) {
-        toast.success("New Flat Shared Successfuly");
+        toast.success("Flat Shared Successfully");
         router.push("/dashboard/my-flats");
+      } else {
+        toast.error("Failed to share the flat");
       }
     } catch (err: any) {
       toast.error(err?.message || "Something went wrong");
     }
   };
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
   return (
     <Box>
       <Typography component="h1" variant="h5">

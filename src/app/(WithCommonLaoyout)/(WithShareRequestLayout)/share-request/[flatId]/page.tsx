@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingPage from "@/app/loading";
 import FSForm from "@/components/Forms/FSForm";
 import FSInput from "@/components/Forms/FSInput";
 import { useShareFlatRequestMutation } from "@/redux/api/flatRequestsApi";
@@ -42,15 +43,21 @@ const FlatShareRequest = ({ params }: TParams) => {
       flatId: params.flatId,
     };
     try {
-      const res = await shareFlatRequest(data).unwrap();
+      const res: any = await shareFlatRequest(data).unwrap();
       if (res?.id) {
-        toast.success("Flat Requested");
+        toast.success("Booking Requested");
         router.push("/dashboard/my-flat-requests");
+      } else {
+        toast.error("Booking Request Failed");
       }
     } catch (err: any) {
       toast.error(err?.message || "Something went wrong");
     }
   };
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <Container>

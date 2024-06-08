@@ -16,6 +16,7 @@ import { FieldValues } from "react-hook-form";
 import FSInput from "@/components/Forms/FSInput";
 import { useState } from "react";
 import Link from "next/link";
+import LoadingPage from "@/app/loading";
 
 const FlatsSection = () => {
   const [query, setQuery] = useState({});
@@ -29,6 +30,10 @@ const FlatsSection = () => {
   const handleClearSearch = () => {
     setQuery({});
   };
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <Container sx={{ marginY: "50px" }}>

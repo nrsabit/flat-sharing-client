@@ -1,4 +1,5 @@
 "use client";
+import LoadingPage from "@/app/loading";
 import FSForm from "@/components/Forms/FSForm";
 import FSInput from "@/components/Forms/FSInput";
 import {
@@ -26,15 +27,21 @@ const EditFlat = ({ params }: { params: { flatId: string } }) => {
     };
 
     try {
-      const res = await updateFlat(data);
-      if (res?.data?.id) {
+      const res = await updateFlat(data).unwrap();
+      if (res?.id) {
         toast.success("Flat Updated Successfuly");
         router.push("/dashboard/my-flats");
+      } else {
+        toast.error("Failed to update the flat");
       }
     } catch (err: any) {
       toast.error(err?.message || "Something went wrong");
     }
   };
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <Box>

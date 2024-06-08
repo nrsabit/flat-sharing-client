@@ -1,6 +1,8 @@
 "use client";
+import LoadingPage from "@/app/loading";
 import {
   useGetAllUsersQuery,
+  useGetMeQuery,
   useUpdateUserStatusMutation,
 } from "@/redux/api/usersApi";
 import {
@@ -12,13 +14,17 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const ManageUsers = () => {
   const { data: users, isLoading: isUsersLoading } = useGetAllUsersQuery({});
+  const { data: user, isLoading: isMeLoading } = useGetMeQuery({});
 
   const [changeStatus, { isLoading: userUpdateLoading }] =
     useUpdateUserStatusMutation();
+
+  const router = useRouter()
 
   const handleChangeRole = async (id: string, role: string) => {
     const updateData = {
@@ -31,6 +37,8 @@ const ManageUsers = () => {
       const res = await changeStatus(updateData).unwrap();
       if (res?.id) {
         toast.success("User Role Changed Successfully");
+      } else {
+        toast.error("Failed to update the role");
       }
     } catch (err: any) {
       toast.error(err.message || "Something went wrong");
@@ -53,6 +61,14 @@ const ManageUsers = () => {
       toast.error(err.message || "Something went wrong");
     }
   };
+
+  if (isUsersLoading || userUpdateLoading) {
+    return <LoadingPage />;
+  }
+
+  if (!isMeLoading && user?.role !== "admin") {
+    return router.push("/login");
+  }
 
   return (
     <Box>

@@ -27,7 +27,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 export default function ProfileModal({ user }: { user: Record<string, any> }) {
   const [open, setOpen] = React.useState(false);
 
-  const [updateProfile, { isLoading }] = useUpdateProfileMutation();
+  const [updateProfile] = useUpdateProfileMutation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,10 +39,12 @@ export default function ProfileModal({ user }: { user: Record<string, any> }) {
   const handleSubmit = async (values: FieldValues) => {
     console.log(values);
     try {
-      const res = await updateProfile(values);
-      if (res?.data?.id) {
+      const res = await updateProfile(values).unwrap();
+      if (res?.id) {
         toast.success("Profile Updated Successfully");
         setOpen(false);
+      } else {
+        toast.error("Failed to update profile info");
       }
     } catch (err: any) {
       toast.error(err?.message || "Something went wrong");
@@ -96,10 +98,7 @@ export default function ProfileModal({ user }: { user: Record<string, any> }) {
             </Grid>
           </DialogContent>
           <DialogActions>
-            <Button
-              sx={{ margin: "16px 0px" }}
-              type="submit"
-            >
+            <Button sx={{ margin: "16px 0px" }} type="submit">
               Update
             </Button>
           </DialogActions>

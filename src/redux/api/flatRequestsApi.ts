@@ -18,8 +18,27 @@ export const flatRequestsApi = baseApi.injectEndpoints({
       }),
       providesTags: ["flat-requests"],
     }),
+    getAllRequests: build.query({
+      query: () => ({
+        url: "/bookings",
+        method: "GET",
+      }),
+      providesTags: ["flat-requests"],
+    }),
+    changeBookingStatus: build.mutation({
+      query: (payload) => ({
+        url: `/bookings/${payload.id}`,
+        method: "PUT",
+        data: payload.data,
+      }),
+      invalidatesTags: ["flat-requests"],
+    }),
   }),
 });
 
-export const { useShareFlatRequestMutation, useGetMyRequestsQuery } =
-  flatRequestsApi;
+export const {
+  useShareFlatRequestMutation,
+  useGetMyRequestsQuery,
+  useGetAllRequestsQuery,
+  useChangeBookingStatusMutation,
+} = flatRequestsApi;

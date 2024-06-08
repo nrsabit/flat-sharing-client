@@ -11,6 +11,7 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useChangePasswordMutation } from "@/redux/api/usersApi";
+import LoadingPage from "@/app/loading";
 
 const changePasswordSchema = z.object({
   oldPassword: z.string().min(6, "Password should be at leaset 6 characters"),
@@ -32,13 +33,21 @@ const ChangePassword = () => {
     }
 
     try {
-      const res = await changePassword(values);
-      toast.success(res?.data?.message);
+      const res = await changePassword(values).unwrap();
+      if (res?.id) {
+        toast.success("Password Changed Successfully");
+      } else {
+        toast.error("Something went wrong, Please recheck the old password");
+      }
       router.refresh();
     } catch (err: any) {
       toast.error(err?.message || "Something went wrong");
     }
   };
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <Container>

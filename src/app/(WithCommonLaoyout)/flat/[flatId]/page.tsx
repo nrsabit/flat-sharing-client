@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { useGetSilgleFlatQuery } from "@/redux/api/flatsApi";
 import Link from "next/link";
+import LoadingPage from "@/app/loading";
 
 type TParams = {
   params: {
@@ -19,7 +20,11 @@ type TParams = {
 };
 
 const FlatDetails = ({ params }: TParams) => {
-  const { data: flat } = useGetSilgleFlatQuery(params.flatId);
+  const { data: flat, isLoading } = useGetSilgleFlatQuery(params.flatId);
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <Box>

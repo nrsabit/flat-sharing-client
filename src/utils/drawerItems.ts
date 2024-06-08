@@ -4,6 +4,7 @@ import KeyIcon from "@mui/icons-material/Key";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import AddHomeWorkIcon from "@mui/icons-material/AddHomeWork";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 
 export const drawerItems = (role: string) => {
   const menuItems = [
@@ -45,6 +46,11 @@ export const drawerItems = (role: string) => {
         {
           title: "Manage Flats",
           path: `manage-flats`,
+          icon: ApartmentIcon,
+        },
+        {
+          title: "Manage Flat Requests",
+          path: `manage-booking-requests`,
           icon: ApartmentIcon,
         }
       );

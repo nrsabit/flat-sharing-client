@@ -15,9 +15,10 @@ import {
 } from "@/redux/api/flatsApi";
 import { toast } from "sonner";
 import Link from "next/link";
+import LoadingPage from "@/app/loading";
 
 const MyFlats = () => {
-  const { data: flats } = useGetMyFlatsQuery({});
+  const { data: flats, isLoading: isMyFlatsLoading } = useGetMyFlatsQuery({});
   const [deleteFlat, { isLoading }] = useDeleteFlatMutation();
 
   const handleDelete = async (id: string) => {
@@ -29,6 +30,8 @@ const MyFlats = () => {
             const res = await deleteFlat(id).unwrap();
             if (res?.id) {
               toast.success("Flat deleted successfully");
+            } else {
+              toast.error("Failed to delete the flat");
             }
           },
         },
@@ -44,6 +47,10 @@ const MyFlats = () => {
       toast.error(err?.message || "Something went wrong");
     }
   };
+
+  if(isMyFlatsLoading || isLoading){
+    return <LoadingPage/>
+  }
 
   return (
     <Box>

@@ -10,9 +10,14 @@ import {
   Typography,
 } from "@mui/material";
 import { useGetMyRequestsQuery } from "@/redux/api/flatRequestsApi";
+import LoadingPage from "@/app/loading";
 
 const MyFlatRequests = () => {
-  const { data: requests } = useGetMyRequestsQuery({});
+  const { data: requests, isLoading } = useGetMyRequestsQuery({});
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <Box>
