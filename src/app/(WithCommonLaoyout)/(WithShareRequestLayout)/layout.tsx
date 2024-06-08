@@ -7,7 +7,7 @@ const ShareRequestLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   useEffect(() => {
     if (!isLoggedIn()) {
-      return router.push("/login");
+       router.push("/login");
     }else{
         
     }

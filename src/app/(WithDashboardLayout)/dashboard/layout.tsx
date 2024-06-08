@@ -8,8 +8,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   useEffect(() => {
     if (!isLoggedIn()) {
-      console.log("Hello 3");
-      return router.push("/login");
+       router.push("/login");
     }
   }, [router]);
   
