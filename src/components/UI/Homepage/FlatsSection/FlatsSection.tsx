@@ -54,24 +54,28 @@ const FlatsSection = () => {
             size="small"
             name="searchTerm"
             placeholder="Search by Location"
+            required={false}
           />
           <FSInput
             size="small"
             name="minPrice"
             placeholder="Min Rent"
             type="number"
+            required={false}
           />
           <FSInput
             size="small"
             name="maxPrice"
             placeholder="Max Rent"
             type="number"
+            required={false}
           />
           <FSInput
             size="small"
             name="totalBedrooms"
             placeholder="Bedrooms"
             type="number"
+            required={false}
           />
         </Stack>
         <Stack
