@@ -1,3 +1,21 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+  "rewrites": [
+    {
+      "source": "/dashboard/:path*",
+      "destination": "/dashboard/:path*"
+    },
+    {
+      "source": "/flat/:id",
+      "destination": "/flat/:id"
+    },
+    {
+      "source": "/share-request/:id",
+      "destination": "/share-request/:id"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
 }
+
