@@ -19,8 +19,10 @@ const EditFlat = ({ params }: { params: { flatId: string } }) => {
   const [updateFlat, { isLoading }] = useUpdateFlatMutation();
 
   const handleFormSubmit = async (values: FieldValues) => {
-    values.rent = Number(values.rent);
-    values.totalBedrooms = Number(values.totalBedrooms);
+    values.rent = values.rent ? Number(values.rent) : undefined;
+    values.totalBedrooms = values.totalBedrooms
+      ? Number(values.totalBedrooms)
+      : undefined;
     const data = {
       id: params.flatId,
       data: values,
@@ -58,6 +60,7 @@ const EditFlat = ({ params }: { params: { flatId: string } }) => {
               sx={{ mb: 2 }}
               defaultValue={flat?.rent}
               fullWidth
+              required={false}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
@@ -68,6 +71,7 @@ const EditFlat = ({ params }: { params: { flatId: string } }) => {
               sx={{ mb: 2 }}
               defaultValue={flat?.totalBedrooms}
               fullWidth
+              required={false}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
@@ -77,6 +81,7 @@ const EditFlat = ({ params }: { params: { flatId: string } }) => {
               sx={{ mb: 2 }}
               defaultValue={flat?.location}
               fullWidth
+              required={false}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
@@ -87,6 +92,7 @@ const EditFlat = ({ params }: { params: { flatId: string } }) => {
               sx={{ mb: 2 }}
               defaultValue={flat?.amenities}
               fullWidth
+              required={false}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
@@ -97,6 +103,7 @@ const EditFlat = ({ params }: { params: { flatId: string } }) => {
               sx={{ mb: 2 }}
               defaultValue={flat?.description}
               fullWidth
+              required={false}
             />
           </Grid>
         </Grid>

@@ -32,6 +32,7 @@ export const flatsApi = baseApi.injectEndpoints({
         url: `/flats/${id}`,
         method: "GET",
       }),
+      providesTags: ["flats"]
     }),
     updateFlat: build.mutation({
       query: (payload) => ({
