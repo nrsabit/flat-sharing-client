@@ -13,6 +13,7 @@ import { loginUser } from "@/services/actions/loginUser";
 import { toast } from "sonner";
 import { storeUserInfo } from "@/services/auth.services";
 import { zodResolver } from "@hookform/resolvers/zod";
+import TestEmailsPasswords from "@/components/UI/TestCredentials/TestCredentials";
 
 export type TLoginFormValues = {
   email: string;
@@ -96,6 +97,7 @@ const LoginPage = () => {
               </Typography>
             </Box>
           </FSForm>
+          <TestEmailsPasswords/>
         </Box>
       </Stack>
     </Container>

@@ -40,7 +40,7 @@ const adviceContent = [
 
 const AdviceSection = () => {
   return (
-    <Box sx={{ p: 4, mt: 4, bgcolor: "#e7e7e7", borderRadius: "8px" }}>
+    <Box sx={{ p: 4, mt: 5, bgcolor: "#e7e7e7", borderRadius: "8px" }}>
       <Grid
         container
         spacing={4}

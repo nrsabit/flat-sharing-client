@@ -24,8 +24,8 @@ const Footer = () => {
             <Typography variant="h6" gutterBottom>
               Contact Information
             </Typography>
-            <Typography>Email: homestay@web.com</Typography>
-            <Typography>Phone: +123 456 7890</Typography>
+            <Typography>Email: mailbox.sabit@gmail.com</Typography>
+            <Typography>Phone: +8801882832590</Typography>
             <Box mt={2}>
               <IconButton href="https://facebook.com" color="inherit">
                 <Facebook />

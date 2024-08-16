@@ -4,7 +4,7 @@ import Link from "next/link";
 const ShareFlatSection = () => {
   return (
     <Box
-      mt={2}
+      mt={5}
       borderRadius={2}
       p={5}
       display="flex"

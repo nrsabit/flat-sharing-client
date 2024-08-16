@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 
 const BannerSection = () => {
   return (
-    <Box mt={2}>
+    <Box mt={5}>
       <Image style={{borderRadius: "8px"}} src={banner} alt="Banner" />
     </Box>
   );
