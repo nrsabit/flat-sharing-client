@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## About Project
+
+This is a website for sharing flats, where you can share flat, and bookk shared flats, and if you are an admin, then you can approve or decline the flat requests, and also you can update and delete the flats as well
+
 ## Getting Started
 
 First, run the development server:

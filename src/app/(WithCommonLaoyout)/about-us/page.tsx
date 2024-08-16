@@ -74,12 +74,12 @@ const AboutPage = () => {
           <Grid item xs={12} sm={6}>
             <Typography variant="body1" gutterBottom>
               <EmailIcon /> Email:{" "}
-              <Link href="mailto:support@yourwebsitename.com">
-                hello@homestay.com
+              <Link href="mailto:mailbox.sabit@gmail.com">
+                mailbox.sabit@gmail.com
               </Link>
             </Typography>
             <Typography variant="body1" gutterBottom>
-              <PhoneIcon /> Phone: +1 (333) 123-4567
+              <PhoneIcon /> Phone: +8801882832590
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
